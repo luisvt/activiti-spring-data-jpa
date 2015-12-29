@@ -17,16 +17,7 @@ import static javax.persistence.EnumType.STRING;
  */
 @Entity
 @Table(name = "act_ru_identitylink")
-public class IdentityLink implements java.io.Serializable {
-
-    private String id;
-    private ProcessDefinition processDefinition;
-    private Task task;
-    private Execution processInstance;
-    private Integer rev;
-    private String groupId;
-    private IdentityLinkType type;
-    private String userId;
+public class IdentityLink {
 
     public IdentityLink() {
     }
@@ -56,87 +47,40 @@ public class IdentityLink implements java.io.Serializable {
 
     @Id
     @Column(name = "id_", unique = true, nullable = false, length = 64)
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    String id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proc_def_id_")
-    public ProcessDefinition getProcessDefinition() {
-        return this.processDefinition;
-    }
-
-    public void setProcessDefinition(ProcessDefinition processDefinition) {
-        this.processDefinition = processDefinition;
-    }
+    ProcessDefinition processDefinition
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id_")
-    public Task getTask() {
-        return this.task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
+    Task task
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proc_inst_id_")
-    public Execution getProcessInstance() {
-        return this.processInstance;
-    }
-
-    public void setProcessInstance(Execution processInstance) {
-        this.processInstance = processInstance;
-    }
+    Execution processInstance
 
     @Column(name = "rev_")
-    public Integer getRev() {
-        return this.rev;
-    }
-
-    public void setRev(Integer rev) {
-        this.rev = rev;
-    }
+    Integer rev
 
     @Column(name = "group_id_")
-    public String getGroupId() {
-        return this.groupId;
-    }
-
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
+    String groupId
 
     @Column(name = "type_")
     @Enumerated(STRING)
-    public IdentityLinkType getType() {
-        return this.type;
-    }
-
-    public void setType(IdentityLinkType type) {
-        this.type = type;
-    }
+    IdentityLinkType type
 
     @Column(name = "user_id_")
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    String userId
 
     ///transients
 
-    private static IdentityLinkRepository identityLinkRepository;
+    @Transient
+    private IdentityLinkRepository identityLinkRepository
 
     @Autowired
-    public static void setIdentityRepository(IdentityLinkRepository _identityLinkRepository) {
+    public void setIdentityRepository(IdentityLinkRepository _identityLinkRepository) {
         identityLinkRepository = _identityLinkRepository
     }
 
