@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.activiti:activiti-process-validation:5.19.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.activiti/activiti-process-validation/5.19.0/60f659c7571b1acf3381858c9fe4537575300293/activiti-process-validation-5.19.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.activiti/activiti-process-validation/5.19.0/f569c7b8028c20bf2b1ad21d84b1c50aea1f40d8/activiti-process-validation-5.19.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
