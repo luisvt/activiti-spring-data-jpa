@@ -3,7 +3,10 @@ package org.activiti.springdatajpa.models;
 
 
 
-import org.activiti.springdatajpa.models.enums.IdentityLinkType;
+import org.activiti.springdatajpa.models.enums.IdentityLinkType
+import org.activiti.springdatajpa.repositories.IdentityInfoRepository;
+import org.activiti.springdatajpa.repositories.IdentityLinkRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -19,7 +22,7 @@ public class IdentityLink implements java.io.Serializable {
     private String id;
     private ProcessDefinition processDefinition;
     private Task task;
-    private Execution execution;
+    private Execution processInstance;
     private Integer rev;
     private String groupId;
     private IdentityLinkType type;
@@ -32,11 +35,19 @@ public class IdentityLink implements java.io.Serializable {
         this.id = id;
     }
 
-    public IdentityLink(String id, ProcessDefinition processDefinition, Task task, Execution execution, Integer rev, String groupId, IdentityLinkType type, String userId) {
+
+    public IdentityLink(Execution processInstance, String groupId, IdentityLinkType type, String userId) {
+        this.processInstance = processInstance;
+        this.groupId = groupId;
+        this.type = type;
+        this.userId = userId;
+    }
+
+    public IdentityLink(String id, ProcessDefinition processDefinition, Task task, Execution processInstance, Integer rev, String groupId, IdentityLinkType type, String userId) {
         this.id = id;
         this.processDefinition = processDefinition;
         this.task = task;
-        this.execution = execution;
+        this.processInstance = processInstance;
         this.rev = rev;
         this.groupId = groupId;
         this.type = type;
@@ -75,12 +86,12 @@ public class IdentityLink implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proc_inst_id_")
-    public Execution getExecution() {
-        return this.execution;
+    public Execution getProcessInstance() {
+        return this.processInstance;
     }
 
-    public void setExecution(Execution execution) {
-        this.execution = execution;
+    public void setProcessInstance(Execution processInstance) {
+        this.processInstance = processInstance;
     }
 
     @Column(name = "rev_")
@@ -118,6 +129,22 @@ public class IdentityLink implements java.io.Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    ///transients
+
+    private static IdentityLinkRepository identityLinkRepository;
+
+    @Autowired
+    public static void setIdentityRepository(IdentityLinkRepository _identityLinkRepository) {
+        identityLinkRepository = _identityLinkRepository
+    }
+
+    @Transient
+    Boolean isUser() {  userId != null }
+
+    IdentityLink insert() {
+        identityLinkRepository.save(this)
     }
 }
 

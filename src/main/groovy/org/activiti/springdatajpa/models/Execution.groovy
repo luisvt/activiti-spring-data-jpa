@@ -1,5 +1,7 @@
 package org.activiti.springdatajpa.models
 
+import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity
+import org.activiti.springdatajpa.models.enums.IdentityLinkType
 import org.activiti.springdatajpa.models.enums.SuspensionState;
 // Generated Nov 21, 2015 11:41:58 AM by Hibernate Tools 3.2.2.GA
 import javax.persistence.*
@@ -113,7 +115,7 @@ public class Execution {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "executionBySuperExec")
     Set<Execution> executionsForSuperExec = new HashSet<>(0)
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "execution")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "processInstance")
     Set<IdentityLink> identityLinks = new HashSet<>(0)
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "execution")
@@ -130,6 +132,26 @@ public class Execution {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "executionByProcInstId")
     Set<VariableInstance> variablesForProcInstIdInstance = new HashSet<>(0)
+
+    /**
+     * Adds an IdentityLink for this user with the specified type,
+     * but only if the user is not associated with this instance yet.
+     **/
+    public IdentityLink involveUser(String userId, IdentityLinkType type) {
+        identityLinks.find { it.isUser() && it.userId == userId } ?: addIdentityLink(userId, null, type)
+    }
+
+
+    public IdentityLink addIdentityLink(String userId, String groupId, IdentityLinkType type) {
+        IdentityLink identityLink = new IdentityLink(this, groupId, type, userId);
+        identityLinks.add(identityLink);
+        identityLink.setProcessInstance(this);
+        identityLink.setUserId(userId);
+        identityLink.setGroupId(groupId);
+        identityLink.setType(type);
+        identityLink.insert();
+        identityLink;
+    }
 
 }
 
