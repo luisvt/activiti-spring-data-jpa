@@ -14,14 +14,6 @@ import java.util.Set;
 @Table(name = "act_re_deployment")
 public class Deployment {
 
-
-
-
-
-
-
-
-
     public Deployment() {
     }
 

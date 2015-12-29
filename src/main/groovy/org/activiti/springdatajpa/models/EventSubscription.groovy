@@ -12,18 +12,6 @@ import java.util.Date;
 @Table(name = "act_ru_event_subscr")
 public class EventSubscription {
 
-
-
-
-
-
-
-
-
-
-
-
-
     public EventSubscription() {
     }
 

@@ -12,27 +12,6 @@ import java.util.Date;
 @Table(name = "act_hi_taskinst")
 public class HistoricTaskInstance {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public HistoricTaskInstance() {
     }
 

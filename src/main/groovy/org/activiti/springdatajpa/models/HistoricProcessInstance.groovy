@@ -14,21 +14,6 @@ import java.util.Date;
 )
 public class HistoricProcessInstance {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public HistoricProcessInstance() {
     }
 

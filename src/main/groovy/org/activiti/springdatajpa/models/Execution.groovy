@@ -91,6 +91,7 @@ public class Execution {
     Boolean isEventScope
 
     @Column(name = "suspension_state_")
+    @Enumerated
     SuspensionState suspensionState
 
     @Column(name = "cached_ent_state_")
@@ -145,11 +146,7 @@ public class Execution {
     public IdentityLink addIdentityLink(String userId, String groupId, IdentityLinkType type) {
         IdentityLink identityLink = new IdentityLink(this, groupId, type, userId);
         identityLinks.add(identityLink);
-        identityLink.setProcessInstance(this);
-        identityLink.setUserId(userId);
-        identityLink.setGroupId(groupId);
-        identityLink.setType(type);
-        identityLink.insert();
+//        identityLink.insert();
         identityLink;
     }
 

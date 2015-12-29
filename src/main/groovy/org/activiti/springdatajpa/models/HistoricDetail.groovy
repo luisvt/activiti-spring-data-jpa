@@ -12,22 +12,6 @@ import java.util.Date;
 @Table(name = "act_hi_detail")
 public class HistoricDetail {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public HistoricDetail() {
     }
 

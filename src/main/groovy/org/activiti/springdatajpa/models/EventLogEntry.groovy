@@ -12,19 +12,6 @@ import java.util.Date;
 @Table(name = "act_evt_log")
 public class EventLogEntry {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public EventLogEntry() {
     }
 

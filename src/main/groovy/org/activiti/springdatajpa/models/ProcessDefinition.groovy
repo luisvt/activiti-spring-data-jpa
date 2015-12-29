@@ -1,4 +1,6 @@
-package org.activiti.springdatajpa.models;
+package org.activiti.springdatajpa.models
+
+import org.activiti.springdatajpa.models.enums.SuspensionState;
 // Generated Nov 21, 2015 11:41:58 AM by Hibernate Tools 3.2.2.GA
 
 
@@ -83,7 +85,8 @@ public class ProcessDefinition {
     Boolean hasGraphicalNotation
 
     @Column(name = "suspension_state_")
-    Integer suspensionState
+    @Enumerated
+    SuspensionState suspensionState
 
     @Column(name = "tenant_id_")
     String tenantId

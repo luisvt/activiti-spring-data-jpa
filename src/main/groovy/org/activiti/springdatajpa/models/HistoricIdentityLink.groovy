@@ -14,13 +14,6 @@ import javax.persistence.Table;
 @Table(name = "act_hi_identitylink")
 public class HistoricIdentityLink {
 
-
-
-
-
-
-
-
     public HistoricIdentityLink() {
     }
 

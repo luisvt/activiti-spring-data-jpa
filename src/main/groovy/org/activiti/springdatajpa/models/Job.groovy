@@ -12,24 +12,6 @@ import java.util.Date;
 @Table(name = "act_ru_job")
 public class Job {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public Job() {
     }
 

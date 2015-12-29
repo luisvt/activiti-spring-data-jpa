@@ -13,18 +13,6 @@ import java.util.Set;
 @Table(name = "act_ge_bytearray")
 public class ByteArray {
 
-
-
-
-
-
-
-
-
-
-
-
-
     public ByteArray() {
     }
 

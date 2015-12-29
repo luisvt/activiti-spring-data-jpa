@@ -1,4 +1,6 @@
-package org.activiti.springdatajpa.models;
+package org.activiti.springdatajpa.models
+
+import org.activiti.springdatajpa.models.enums.SuspensionState;
 // Generated Nov 21, 2015 11:41:58 AM by Hibernate Tools 3.2.2.GA
 import org.activiti.springdatajpa.repositories.IdentityLinkRepository
 import org.activiti.springdatajpa.models.enums.IdentityLinkType
@@ -106,7 +108,8 @@ public class Task {
     String category
 
     @Column(name = "suspension_state_")
-    Integer suspensionState
+    @Enumerated
+    SuspensionState suspensionState
 
     @Column(name = "tenant_id_")
     String tenantId
@@ -123,7 +126,7 @@ public class Task {
     @Transient
     private IdentityLinkRepository identityLinkRepository
 
-    public IdentityLink addIdentityLink(String userId = null, String groupId = null, IdentityLinkType type) {
+    IdentityLink addIdentityLink(String userId, String groupId, IdentityLinkType type) {
         IdentityLink identityLink = new IdentityLink(task: this, userId: userId, groupId: groupId, type: type);
         identityLinks.add(identityLink);
         identityLinkRepository.save(identityLink);
@@ -133,7 +136,7 @@ public class Task {
         return identityLink;
     }
 
-    public void deleteIdentityLink(String userId, String groupId, IdentityLinkType type) {
+    void deleteIdentityLink(String userId, String groupId, IdentityLinkType type) {
         List<IdentityLink> identityLinks = identityLinkRepository
                 .findByTaskIdAndUserIdAndGroupIdAndType(id, userId, groupId, type);
 
@@ -142,6 +145,13 @@ public class Task {
             identityLinkRepository.delete(identityLink.id);
             identityLinkIds.add(identityLink.id);
         }
+
+//        identityLinks.removeIf({
+//            it.type == CANDIDATE &&
+//                    !identityLinkIds.contains(it.id) &&
+//                    (userId != null && userId == it.userId) ||
+//                    (groupId != null && groupId == it.groupId)
+//        })
 
         // fix deleteCandidate() in create TaskListener
         List<IdentityLink> removedIdentityLinkEntities = new ArrayList<IdentityLink>();
@@ -161,45 +171,41 @@ public class Task {
     }
 
     @Transient
-    public Set<IdentityLink> getCandidates() {
+    Set<IdentityLink> getCandidates() {
         identityLinks.findAll { it.type == CANDIDATE }
     }
 
-    public void addCandidateUser(String userId) {
+    def addCandidateUser(String userId) {
         addIdentityLink(userId, null, CANDIDATE);
     }
 
-    public void addCandidateUsers(Collection<String> candidateUsers) {
-        for (String candidateUser : candidateUsers) {
-            addCandidateUser(candidateUser);
-        }
+    def addCandidateUsers(Collection<String> candidateUsers) {
+        candidateUsers.each this.&addCandidateUser
     }
 
-    public void addCandidateGroup(String groupId) {
+    def addCandidateGroup(String groupId) {
         addIdentityLink(null, groupId, CANDIDATE);
     }
 
-    public void addCandidateGroups(Collection<String> candidateGroups) {
-        for (String candidateGroup : candidateGroups) {
-            addCandidateGroup(candidateGroup);
-        }
+    def addCandidateGroups(Collection<String> candidateGroups) {
+        candidateGroups.each this.&addCandidateGroup
     }
 
-    public void deleteCandidateGroup(String groupId) {
+    def deleteCandidateGroup(String groupId) {
         deleteGroupIdentityLink(groupId, CANDIDATE);
     }
 
-    public void deleteCandidateUser(String userId) {
+    def deleteCandidateUser(String userId) {
         deleteUserIdentityLink(userId, CANDIDATE);
     }
 
-    public void deleteGroupIdentityLink(String groupId, IdentityLinkType identityLinkType) {
+    def deleteGroupIdentityLink(String groupId, IdentityLinkType identityLinkType) {
         if (groupId!=null) {
             deleteIdentityLink(null, groupId, identityLinkType);
         }
     }
 
-    public void deleteUserIdentityLink(String userId, IdentityLinkType identityLinkType) {
+    def deleteUserIdentityLink(String userId, IdentityLinkType identityLinkType) {
         if (userId!=null) {
             deleteIdentityLink(userId, null, identityLinkType);
         }

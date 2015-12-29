@@ -14,15 +14,6 @@ import javax.persistence.Table;
 @Table(name = "act_id_info")
 public class IdentityInfo {
 
-
-
-
-
-
-
-
-
-
     public IdentityInfo() {
     }
 

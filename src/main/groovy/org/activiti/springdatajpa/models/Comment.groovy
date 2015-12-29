@@ -12,16 +12,6 @@ import java.util.Date;
 @Table(name = "act_hi_comment")
 public class Comment {
 
-
-
-
-
-
-
-
-
-
-
     public Comment() {
     }
 

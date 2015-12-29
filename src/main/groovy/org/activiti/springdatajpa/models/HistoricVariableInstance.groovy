@@ -12,21 +12,6 @@ import java.util.Date;
 @Table(name = "act_hi_varinst")
 public class HistoricVariableInstance {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public HistoricVariableInstance() {
     }
 
