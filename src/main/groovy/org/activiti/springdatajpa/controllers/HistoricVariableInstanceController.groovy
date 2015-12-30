@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/historic-variable-instances')
-class HistoricVariableInstanceController extends AbstractRestController<HistoricVariableInstance, String> {
+class HistoricVariableInstanceController extends AbstractRestController<HistoricVariableInstanceRepository, HistoricVariableInstance, String> {
 
-    @Autowired
-    HistoricVariableInstanceController(HistoricVariableInstanceRepository repo) {
-        super(repo)
-    }
 }
 

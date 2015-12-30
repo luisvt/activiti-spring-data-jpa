@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/users')
-class UserController extends AbstractRestController<User, String> {
+class UserController extends AbstractRestController<UserRepository, User, String> {
 
-    @Autowired
-    UserController(UserRepository repo) {
-        super(repo)
-    }
 }
 

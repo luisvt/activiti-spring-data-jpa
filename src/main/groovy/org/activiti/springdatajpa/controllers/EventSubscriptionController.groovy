@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/event-subscriptions')
-class EventSubscriptionController extends AbstractRestController<EventSubscription, String> {
+class EventSubscriptionController extends AbstractRestController<EventSubscriptionRepository, EventSubscription, String> {
 
-    @Autowired
-    EventSubscriptionController(EventSubscriptionRepository repo) {
-        super(repo)
-    }
 }
 

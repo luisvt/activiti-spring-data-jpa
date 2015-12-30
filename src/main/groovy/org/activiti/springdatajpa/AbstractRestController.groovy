@@ -3,56 +3,58 @@ package org.activiti.springdatajpa
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanUtils
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.User
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 
+import static org.springframework.web.bind.annotation.RequestMethod.*
+
 /**
- * Abstract that work as base for the others controlles
+ * Abstract controller to be inherited by other rest controllers
  *
- * @param <T>
- * @param <ID>
+ * Created by lvargas on 11/23/15.
  */
-abstract class AbstractRestController<T, ID extends Serializable> {
+abstract class AbstractRestController<R extends JpaRepository, T, ID extends Serializable> {
     private Logger logger = LoggerFactory.getLogger(AbstractRestController.class);
 
-    private JpaRepository<T, ID> repo;
+    @Autowired R repo;
 
-    public AbstractRestController(JpaRepository<T, ID> repo) {
-        this.repo = repo
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public T findOne(@PathVariable ID id) {
-        return repo.findOne(id);
+    @RequestMapping(value = "/{id}")
+    T findOne(@PathVariable ID id,
+              @AuthenticationPrincipal User user) {
+        return (T) repo.findOne(id);
     }
 
     @RequestMapping
     public Iterable<T> findAll(@RequestParam(required = false) Integer page,
-                               @RequestParam(required = false) Integer size) {
+                               @RequestParam(required = false) Integer size,
+                               @AuthenticationPrincipal User user) {
         if(page == null || size == null) return repo.findAll()
 
         repo.findAll(new PageRequest(page, size))
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public T create(@RequestBody T entity) {
-        logger.debug("create() with body {} of type {}", entity, entity.getClass());
-
+    @RequestMapping(method = POST)
+    T create(@RequestBody T entity,
+             @AuthenticationPrincipal User user) {
         repo.save entity
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public T update(@PathVariable ID id, @RequestBody T json) {
+    @RequestMapping(value = "/{id}", method = PUT)
+    T update(@PathVariable ID id,
+             @RequestBody T json,
+             @AuthenticationPrincipal User user) {
         logger.debug("update() of id#{} with body {}", id, json);
         logger.debug("T json is of type {}", json.getClass());
 
-        T entity = repo.findOne(id)
+        T entity = (T) repo.findOne(id)
         try {
             BeanUtils.copyProperties(entity, json);
         }
@@ -66,8 +68,9 @@ abstract class AbstractRestController<T, ID extends Serializable> {
         repo.save entity
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable ID id) {
+    @RequestMapping(value = "/{id}", method = DELETE)
+    void delete(@PathVariable ID id,
+                @AuthenticationPrincipal User user) {
         repo.delete id
     }
 }

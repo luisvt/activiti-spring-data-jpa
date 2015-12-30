@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/jobs')
-class JobController extends AbstractRestController<Job, String> {
+class JobController extends AbstractRestController<JobRepository, Job, String> {
 
-    @Autowired
-    JobController(JobRepository repo) {
-        super(repo)
-    }
 }
 

@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/historic-attachments')
-class HistoricActivityInstanceController extends AbstractRestController<HistoricActivityInstance, String> {
+class HistoricActivityInstanceController extends AbstractRestController<HistoricActivityInstanceRepository, HistoricActivityInstance, String> {
 
-    @Autowired
-    HistoricActivityInstanceController(HistoricActivityInstanceRepository repo) {
-        super(repo)
-    }
 }
 

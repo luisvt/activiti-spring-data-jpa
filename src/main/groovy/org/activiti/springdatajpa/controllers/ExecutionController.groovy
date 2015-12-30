@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/executions')
-class ExecutionController extends AbstractRestController<Execution, String> {
+class ExecutionController extends AbstractRestController<ExecutionRepository, Execution, String> {
 
-    @Autowired
-    ExecutionController(ExecutionRepository repo) {
-        super(repo)
-    }
 }
 

@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/properties')
-class PropertyController extends AbstractRestController<Property, String> {
+class PropertyController extends AbstractRestController<PropertyRepository, Property, String> {
 
-    @Autowired
-    PropertyController(PropertyRepository repo) {
-        super(repo)
-    }
 }
 

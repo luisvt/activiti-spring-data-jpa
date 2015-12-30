@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/byte-arrays')
-class ByteArrayController extends AbstractRestController<ByteArray, String> {
+class ByteArrayController extends AbstractRestController<ByteArrayRepository, ByteArray, String> {
 
-    @Autowired
-    ByteArrayController(ByteArrayRepository repo) {
-        super(repo)
-    }
 }
 

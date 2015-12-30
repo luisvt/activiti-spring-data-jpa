@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/event-log-entries')
-class EventLogEntryController extends AbstractRestController<EventLogEntry, String> {
+class EventLogEntryController extends AbstractRestController<EventLogEntryRepository, EventLogEntry, String> {
 
-    @Autowired
-    EventLogEntryController(EventLogEntryRepository repo) {
-        super(repo)
-    }
 }
 

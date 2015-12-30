@@ -62,13 +62,13 @@ public class User implements UserDetails {
             inverseJoinColumns = [@JoinColumn(name = "group_id_", nullable = false, updatable = false)])
     Set<Group> authorities
 
-    boolean accountNonExpired
+    boolean accountNonExpired = true
 
-    boolean accountNonLocked
+    boolean accountNonLocked = true
 
-    boolean credentialsNonExpired
+    boolean credentialsNonExpired = true
 
-    boolean enabled
+    boolean enabled = true
 }
 
 

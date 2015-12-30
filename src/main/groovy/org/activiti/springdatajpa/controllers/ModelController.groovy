@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/models')
-class ModelController extends AbstractRestController<Model, String> {
+class ModelController extends AbstractRestController<ModelRepository, Model, String> {
 
-    @Autowired
-    ModelController(ModelRepository repo) {
-        super(repo)
-    }
 }
 

@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/historic-task-instances')
-class HistoricTaskInstanceController extends AbstractRestController<HistoricTaskInstance, String> {
+class HistoricTaskInstanceController extends AbstractRestController<HistoricTaskInstanceRepository, HistoricTaskInstance, String> {
 
-    @Autowired
-    HistoricTaskInstanceController(HistoricTaskInstanceRepository repo) {
-        super(repo)
-    }
 }
 

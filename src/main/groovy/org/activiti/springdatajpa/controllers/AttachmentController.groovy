@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/attachments')
-class AttachmentController extends AbstractRestController<Attachment, String> {
+class AttachmentController extends AbstractRestController<AttachmentRepository, Attachment, String> {
 
-    @Autowired
-    AttachmentController(AttachmentRepository repo) {
-        super(repo)
-    }
 }
 

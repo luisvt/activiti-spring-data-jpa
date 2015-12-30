@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/comments')
-class CommentController extends AbstractRestController<Comment, String> {
+class CommentController extends AbstractRestController<CommentRepository, Comment, String> {
 
-    @Autowired
-    CommentController(CommentRepository repo) {
-        super(repo)
-    }
 }
 

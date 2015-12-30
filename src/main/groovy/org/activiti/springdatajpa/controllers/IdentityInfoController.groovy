@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/identity-infos')
-class IdentityInfoController extends AbstractRestController<IdentityInfo, String> {
+class IdentityInfoController extends AbstractRestController<IdentityInfoRepository, IdentityInfo, String> {
 
-    @Autowired
-    IdentityInfoController(IdentityInfoRepository repo) {
-        super(repo)
-    }
 }
 

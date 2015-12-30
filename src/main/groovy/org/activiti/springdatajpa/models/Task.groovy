@@ -1,5 +1,8 @@
 package org.activiti.springdatajpa.models
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import org.activiti.engine.task.DelegationState
 import org.activiti.springdatajpa.models.enums.SuspensionState;
 // Generated Nov 21, 2015 11:41:58 AM by Hibernate Tools 3.2.2.GA
 import org.activiti.springdatajpa.repositories.IdentityLinkRepository
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import java.util.*
 
+import static javax.persistence.EnumType.STRING
 import static org.activiti.springdatajpa.models.enums.IdentityLinkType.candidate;
 
 /**
@@ -16,6 +20,7 @@ import static org.activiti.springdatajpa.models.enums.IdentityLinkType.candidate
  */
 @Entity
 @Table(name = "act_ru_task")
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator)
 public class Task {
 
     /**
@@ -28,29 +33,6 @@ public class Task {
 
     public Task(String id) {
         this.id = id;
-    }
-
-    public Task(String id, ProcessDefinition processDefinition, Execution execution, Execution processInstance, Integer rev, String name, String parentTaskId, String description, String taskDefKey, String owner, String assignee, String delegation, Integer priority, Date createTime, Date dueDate, String category, Integer suspensionState, String tenantId, String formKey, Set<IdentityLink> identityLinks) {
-        this.id = id;
-        this.processDefinition = processDefinition;
-        this.execution = execution;
-        this.processInstance = processInstance;
-        this.rev = rev;
-        this.name = name;
-        this.parentTaskId = parentTaskId;
-        this.description = description;
-        this.taskDefKey = taskDefKey;
-        this.owner = owner;
-        this.assignee = assignee;
-        this.delegation = delegation;
-        this.priority = priority;
-        this.createTime = createTime;
-        this.dueDate = dueDate;
-        this.category = category;
-        this.suspensionState = suspensionState;
-        this.tenantId = tenantId;
-        this.formKey = formKey;
-        this.identityLinks = identityLinks;
     }
 
     @Id
@@ -91,10 +73,11 @@ public class Task {
     String assignee
 
     @Column(name = "delegation_", length = 64)
-    String delegation
+    @Enumerated(STRING)
+    DelegationState delegationState
 
     @Column(name = "priority_")
-    Integer priority
+    Integer priority = DEFAULT_PRIORITY
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time_", length = 29)

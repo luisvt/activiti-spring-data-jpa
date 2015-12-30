@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/historic-details')
-class HistoricDetailController extends AbstractRestController<HistoricDetail, String> {
+class HistoricDetailController extends AbstractRestController<HistoricDetailRepository, HistoricDetail, String> {
 
-    @Autowired
-    HistoricDetailController(HistoricDetailRepository repo) {
-        super(repo)
-    }
 }
 

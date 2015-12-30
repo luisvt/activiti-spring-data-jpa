@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/process-definition-infos')
-class ProcessDefinitionInfoController extends AbstractRestController<ProcessDefinitionInfo, String> {
+class ProcessDefinitionInfoController extends AbstractRestController<ProcessDefinitionInfoRepository, ProcessDefinitionInfo, String> {
 
-    @Autowired
-    ProcessDefinitionInfoController(ProcessDefinitionInfoRepository repo) {
-        super(repo)
-    }
 }
 

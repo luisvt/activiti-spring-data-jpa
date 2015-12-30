@@ -32,11 +32,13 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-security',
             'org.activiti:activiti-spring-boot-starter-basic:5.19.0',
-            'org.codehaus.groovy:groovy'
+            'org.codehaus.groovy:groovy',
+            'com.jayway.jsonpath:json-path:2.1.0'
 
     runtime 'com.h2database:h2'
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.boot:spring-boot-starter-test',
+            'org.springframework.security:spring-security-test'
 }
 
 

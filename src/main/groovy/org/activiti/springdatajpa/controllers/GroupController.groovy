@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/groups')
-class GroupController extends AbstractRestController<Group, String> {
+class GroupController extends AbstractRestController<GroupRepository, Group, String> {
 
-    @Autowired
-    GroupController(GroupRepository repo) {
-        super(repo)
-    }
 }
 

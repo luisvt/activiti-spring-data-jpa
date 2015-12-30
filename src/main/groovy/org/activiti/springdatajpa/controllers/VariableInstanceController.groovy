@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/variable-instances')
-class VariableInstanceController extends AbstractRestController<VariableInstance, String> {
+class VariableInstanceController extends AbstractRestController<VariableInstanceRepository, VariableInstance, String> {
 
-    @Autowired
-    VariableInstanceController(VariableInstanceRepository repo) {
-        super(repo)
-    }
 }
 

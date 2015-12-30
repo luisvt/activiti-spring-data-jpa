@@ -20,29 +20,6 @@ public class HistoricTaskInstance {
         this.startTime = startTime;
     }
 
-    public HistoricTaskInstance(String id, String processDefinitionId, String taskDefinitionKey, String processInstanceId, String executionId, String name, String parentTaskId, String description, String owner, String assignee, Date startTime, Date claimTime, Date endTime, Long duration, String deleteReason, Integer priority, Date dueDate, String formKey, String category, String tenantId) {
-        this.id = id;
-        this.processDefinitionId = processDefinitionId;
-        this.taskDefinitionKey = taskDefinitionKey;
-        this.processInstanceId = processInstanceId;
-        this.executionId = executionId;
-        this.name = name;
-        this.parentTaskId = parentTaskId;
-        this.description = description;
-        this.owner = owner;
-        this.assignee = assignee;
-        this.startTime = startTime;
-        this.claimTime = claimTime;
-        this.endTime = endTime;
-        this.duration = duration;
-        this.deleteReason = deleteReason;
-        this.priority = priority;
-        this.dueDate = dueDate;
-        this.formKey = formKey;
-        this.category = category;
-        this.tenantId = tenantId;
-    }
-
     @Id
     @Column(name = "id_", unique = true, nullable = false, length = 64)
     String id

@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/identity-links')
-class IdentityLinkController extends AbstractRestController<IdentityLink, String> {
+class IdentityLinkController extends AbstractRestController<IdentityLinkRepository, IdentityLink, String> {
 
-    @Autowired
-    IdentityLinkController(IdentityLinkRepository repo) {
-        super(repo)
-    }
 }
 

@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/historic-process-instances')
-class HistoricProcessInstanceController extends AbstractRestController<HistoricProcessInstance, String> {
+class HistoricProcessInstanceController extends AbstractRestController<HistoricProcessInstanceRepository, HistoricProcessInstance, String> {
 
-    @Autowired
-    HistoricProcessInstanceController(HistoricProcessInstanceRepository repo) {
-        super(repo)
-    }
 }
 

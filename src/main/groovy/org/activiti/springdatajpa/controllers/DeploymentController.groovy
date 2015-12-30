@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping('/deployments')
-class DeploymentController extends AbstractRestController<Deployment, String> {
+class DeploymentController extends AbstractRestController<DeploymentRepository, Deployment, String> {
 
-    @Autowired
-    DeploymentController(DeploymentRepository repo) {
-        super(repo)
-    }
 }
 
