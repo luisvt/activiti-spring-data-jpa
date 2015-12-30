@@ -48,14 +48,8 @@ public class ByteArray {
     @Column(name = "name_")
     String name
 
-    @Column(name = "bytes_")
-    public byte[] getBytes() {
-        return this.bytes;
-    }
-
-    public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
-    }
+    @Column(name = "bytes_", length = 20000)
+    public byte[] bytes
 
     @Column(name = "generated_")
     Boolean generated

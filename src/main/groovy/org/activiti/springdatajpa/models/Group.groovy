@@ -1,5 +1,7 @@
 package org.activiti.springdatajpa.models
 
+import org.springframework.security.core.GrantedAuthority
+
 import javax.persistence.*;
 
 // Generated Nov 21, 2015 11:41:58 AM by Hibernate Tools 3.2.2.GA
@@ -8,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "act_id_group")
-public class Group {
+public class Group implements GrantedAuthority {
 
     public Group() {
     }
@@ -43,6 +45,11 @@ public class Group {
             joinColumns = [@JoinColumn(name = "group_id_", nullable = false, updatable = false)],
             inverseJoinColumns = [@JoinColumn(name = "user_id_", nullable = false, updatable = false)])
     Set<User> users
+
+    @Override
+    String getAuthority() {
+        name
+    }
 }
 
 

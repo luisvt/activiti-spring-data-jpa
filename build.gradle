@@ -30,6 +30,7 @@ repositories {
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-security',
             'org.activiti:activiti-spring-boot-starter-basic:5.19.0',
             'org.codehaus.groovy:groovy'
 
