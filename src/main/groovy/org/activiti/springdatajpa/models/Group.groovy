@@ -1,5 +1,8 @@
 package org.activiti.springdatajpa.models
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import org.springframework.security.core.GrantedAuthority
 
 import javax.persistence.*;
@@ -10,6 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "act_id_group")
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator)
 public class Group implements GrantedAuthority {
 
     public Group() {
@@ -47,6 +51,8 @@ public class Group implements GrantedAuthority {
     Set<User> users
 
     @Override
+    @Transient
+    @JsonIgnore
     String getAuthority() {
         name
     }

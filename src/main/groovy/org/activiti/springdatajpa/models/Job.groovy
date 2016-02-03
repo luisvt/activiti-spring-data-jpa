@@ -1,4 +1,7 @@
-package org.activiti.springdatajpa.models;
+package org.activiti.springdatajpa.models
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 // Generated Nov 21, 2015 11:41:58 AM by Hibernate Tools 3.2.2.GA
 
 
@@ -10,6 +13,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "act_ru_job")
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator)
 public class Job {
 
     public Job() {

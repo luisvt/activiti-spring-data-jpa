@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.web.context.WebApplicationContext
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 /**
  * Created by luisvargas on 12/30/15.
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ActivitiSpringDataJpaApplication)
 @WebAppConfiguration
@@ -51,8 +50,8 @@ public class TaskControllerTest {
     @Test
     @WithMockUser
     public void testStart() throws Exception {
-        taskService.saveTask(new TaskEntity('1'));
-        mockMvc.perform(get('/tasks/1/start'))
+        taskService.saveTask(new TaskEntity('1'))
+        mockMvc.perform(post('/tasks/1/start'))
                 .andDo(print())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath('$.delegationState').value('PENDING'))

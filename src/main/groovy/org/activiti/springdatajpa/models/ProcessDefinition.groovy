@@ -1,5 +1,7 @@
 package org.activiti.springdatajpa.models
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import org.activiti.springdatajpa.models.enums.SuspensionState;
 // Generated Nov 21, 2015 11:41:58 AM by Hibernate Tools 3.2.2.GA
 
@@ -15,6 +17,7 @@ import java.util.Set;
 @Table(name = "act_re_procdef"
         , uniqueConstraints = @UniqueConstraint(columnNames = ["key_", "version_", "tenant_id_"])
 )
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator)
 public class ProcessDefinition {
 
     public ProcessDefinition() {
@@ -26,7 +29,7 @@ public class ProcessDefinition {
         this.version = version;
     }
 
-    public ProcessDefinition(String id, Integer rev, String category, String name, String key, int version, String deploymentId, String resourceName, String dgrmResourceName, String description, Boolean hasStartFormKey, Boolean hasGraphicalNotation, Integer suspensionState, String tenantId, Set<Execution> executions, Set<ProcessDefinitionInfo> processDefinitionInfos, Set<Task> tasks, Set<IdentityLink> identityLinks) {
+    public ProcessDefinition(String id, Integer rev, String category, String name, String key, int version, String deploymentId, String resourceName, String dgrmResourceName, String description, Boolean hasStartFormKey, Boolean hasGraphicalNotation, SuspensionState suspensionState, String tenantId, Set<Execution> executions, Set<ProcessDefinitionInfo> processDefinitionInfos, Set<Task> tasks, Set<IdentityLink> identityLinks) {
         this.id = id;
         this.rev = rev;
         this.category = category;

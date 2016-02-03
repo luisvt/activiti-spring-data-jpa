@@ -1,5 +1,7 @@
 package org.activiti.springdatajpa.models
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import org.hibernate.validator.constraints.NotBlank
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +15,7 @@ import javax.persistence.*
  */
 @Entity
 @Table(name = "act_id_user")
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator)
 public class User implements UserDetails {
 
     public User() {
@@ -31,6 +34,19 @@ public class User implements UserDetails {
         this.password = password;
         this.pictureId = pictureId;
         this.authorities = authorities;
+    }
+
+    public User(org.springframework.security.core.userdetails.User user) {
+        this.username = user.username;
+        this.password = user.password;
+        this.authorities = new HashSet<Group>();
+        user.authorities.each {
+            this.authorities.add(new Group(name: it.authority))
+        }
+        this.accountNonExpired = user.accountNonExpired;
+        this.accountNonLocked = user.accountNonLocked;
+        this.credentialsNonExpired = user.credentialsNonExpired;
+        this.enabled = user.enabled;
     }
 
     @Id

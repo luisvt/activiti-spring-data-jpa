@@ -1,5 +1,7 @@
 package org.activiti.springdatajpa.models
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import org.activiti.springdatajpa.models.enums.IdentityLinkType
 import org.activiti.springdatajpa.models.enums.SuspensionState
 
@@ -10,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "act_ru_execution")
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator)
 public class Execution {
 
     public Execution() {
@@ -133,22 +136,8 @@ public class Execution {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "executionByProcInstId")
     Set<VariableInstance> variablesForProcInstIdInstance = new HashSet<>(0)
 
-    /**
-     * Adds an IdentityLink for this user with the specified type,
-     * but only if the user is not associated with this instance yet.
-     **/
-    public IdentityLink involveUser(String userId, IdentityLinkType type) {
-        identityLinks.find { it.isUser() && it.userId == userId } ?: addIdentityLink(userId, null, type)
-    }
-
-
-    public IdentityLink addIdentityLink(String userId, String groupId, IdentityLinkType type) {
-        IdentityLink identityLink = new IdentityLink(this, groupId, type, userId);
-        identityLinks.add(identityLink);
-//        identityLink.insert();
-        identityLink;
-    }
-
+    @Transient
+    Map<String, Object> processVariables
 }
 
 
