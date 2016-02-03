@@ -2,7 +2,6 @@ package org.activiti.springdatajpa.models
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
-import org.activiti.springdatajpa.models.enums.IdentityLinkType
 import org.activiti.springdatajpa.models.enums.SuspensionState
 
 import javax.persistence.*;
@@ -22,7 +21,7 @@ public class Execution {
         this.id = id;
     }
 
-    public Execution(String id, Execution parent, ProcessDefinition processDefinition, Execution executionBySuperExec, Execution executionByProcInstId, Integer rev, String businessKey, String activityId, Boolean isActive, Boolean isConcurrent, Boolean isScope, Boolean isEventScope, SuspensionState suspensionState, Integer cachedEntState, String tenantId, String name, Date lockTime, Set<Execution> executionsForProcInstId, Set<Execution> children, Set<Execution> executionsForSuperExec, Set<IdentityLink> identityLinks, Set<Task> tasksForExecutionId, Set<VariableInstance> variablesForExecutionIdInstance, Set<EventSubscription> eventSubscriptions, Set<Task> tasksForProcInstId, Set<VariableInstance> variablesForProcInstIdInstance) {
+    public Execution(String id, Execution parent, ProcessDefinition processDefinition, Execution executionBySuperExec, Execution executionByProcInstId, Integer rev, String businessKey, String activityId, Boolean isActive, Boolean isConcurrent, Boolean isScope, Boolean isEventScope, SuspensionState suspensionState, Integer cachedEntState, String tenantId, String name, Date lockTime, Set<Execution> executionsForProcInstId, Set<Execution> children, Set<Execution> executionsForSuperExec, Set<IdentityLink> identityLinks, Set<Task> tasksForExecutionId, Set<VariableInstance> executionInstanceVariables, Set<EventSubscription> eventSubscriptions, Set<Task> tasksForProcInstId, Set<VariableInstance> processInstanceVariables) {
         this.id = id;
         this.parent = parent;
         this.processDefinition = processDefinition;
@@ -45,10 +44,10 @@ public class Execution {
         this.executionsForSuperExec = executionsForSuperExec;
         this.identityLinks = identityLinks;
         this.tasksForExecutionId = tasksForExecutionId;
-        this.variablesForExecutionIdInstance = variablesForExecutionIdInstance;
+        this.executionInstanceVariables = executionInstanceVariables;
         this.eventSubscriptions = eventSubscriptions;
         this.tasksForProcInstId = tasksForProcInstId;
-        this.variablesForProcInstIdInstance = variablesForProcInstIdInstance;
+        this.processInstanceVariables = processInstanceVariables;
     }
 
     @Id
@@ -124,8 +123,8 @@ public class Execution {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "execution")
     Set<Task> tasksForExecutionId = new HashSet<>(0)
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "executionByExecutionId")
-    Set<VariableInstance> variablesForExecutionIdInstance = new HashSet<>(0)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "execution")
+    Set<VariableInstance> executionInstanceVariables = new HashSet<>(0)
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "execution")
     Set<EventSubscription> eventSubscriptions = new HashSet<>(0)
@@ -133,8 +132,8 @@ public class Execution {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "execution")
     Set<Task> tasksForProcInstId = new HashSet<>(0)
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "executionByProcInstId")
-    Set<VariableInstance> variablesForProcInstIdInstance = new HashSet<>(0)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "processInstance")
+    Set<VariableInstance> processInstanceVariables = new HashSet<>(0)
 
     @Transient
     Map<String, Object> processVariables

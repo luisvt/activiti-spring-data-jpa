@@ -120,6 +120,18 @@ public class Task {
                         authority -> authority.authority == it.groupId
                     })})
     }
+
+    @Transient
+    private Map<String, Object> processVariables
+
+    Map<String, Object> getProcessVariables() {
+        processInstance?.processVariables ?: processVariables
+    }
+
+    void setProcessVariables(Map<String, Object> processVariables) {
+        this.processVariables = processVariables
+        if(processInstance != null) processInstance.processVariables = processVariables
+    }
 }
 
 

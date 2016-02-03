@@ -3,11 +3,12 @@ package org.activiti.springdatajpa.controllers
 import org.activiti.engine.RuntimeService
 import org.activiti.engine.TaskService
 import org.activiti.springdatajpa.AbstractRestController
+import org.activiti.springdatajpa.NotAllowedException
+import org.activiti.springdatajpa.NotValidProcessVariables
 import org.activiti.springdatajpa.models.Task
 import org.activiti.springdatajpa.repositories.TaskRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
-import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.User
 import org.springframework.web.bind.annotation.*
@@ -55,15 +56,14 @@ class TaskController extends AbstractRestController<TaskRepository, Task, String
 
         taskService.delegateTask(id, user.username)
 
+
         em.refresh(task)
 
-        if(task.processInstance != null) {
-            task.processInstance.processVariables = runtimeService
-                    .createProcessInstanceQuery()
-                    .processInstanceId(task.processInstance.id)
-                    .includeProcessVariables()
-                    .singleResult().processVariables
-        }
+        task.processVariables = taskService.createTaskQuery()
+                .taskId(id)
+                .includeProcessVariables()
+                .singleResult()
+                .processVariables
 
         task
     }
@@ -138,15 +138,3 @@ class TaskController extends AbstractRestController<TaskRepository, Task, String
         task
     }
 }
-
-@ResponseStatus(
-        value = HttpStatus.METHOD_NOT_ALLOWED,
-        reason = "User doesn't have enough permissions to execute this action")
-class NotAllowedException extends RuntimeException {
-}
-
-@ResponseStatus(
-        value = HttpStatus.NOT_ACCEPTABLE,
-        reason = "Variables are invalid"
-)
-class NotValidProcessVariables extends RuntimeException {}

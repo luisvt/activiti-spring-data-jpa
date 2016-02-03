@@ -24,11 +24,11 @@ public class VariableInstance {
         this.name = name;
     }
 
-    public VariableInstance(String id, Execution executionByExecutionId, ByteArray byteArray, Execution executionByProcInstId, Integer rev, String type, String name, String taskId, Double double_, Long long_, String text, String text2) {
+    public VariableInstance(String id, Execution execution, ByteArray byteArray, Execution processInstance, Integer rev, String type, String name, String taskId, Double double_, Long long_, String text, String text2) {
         this.id = id;
-        this.executionByExecutionId = executionByExecutionId;
+        this.execution = execution;
         this.byteArray = byteArray;
-        this.executionByProcInstId = executionByProcInstId;
+        this.processInstance = processInstance;
         this.rev = rev;
         this.type = type;
         this.name = name;
@@ -45,7 +45,7 @@ public class VariableInstance {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "execution_id_")
-    Execution executionByExecutionId
+    Execution execution
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bytearray_id_")
@@ -53,7 +53,7 @@ public class VariableInstance {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proc_inst_id_")
-    Execution executionByProcInstId
+    Execution processInstance
 
     @Column(name = "rev_")
     Integer rev
