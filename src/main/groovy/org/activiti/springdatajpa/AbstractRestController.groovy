@@ -28,7 +28,7 @@ abstract class AbstractRestController<R extends JpaRepository, T, ID extends Ser
     @RequestMapping(value = "/{id}")
     T findOne(@PathVariable ID id,
               @AuthenticationPrincipal User user) {
-        return (T) repo.findOne(id);
+        (T) repo.findOne(id);
     }
 
     @RequestMapping

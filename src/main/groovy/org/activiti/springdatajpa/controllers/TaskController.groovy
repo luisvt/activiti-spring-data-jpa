@@ -36,6 +36,19 @@ class TaskController extends AbstractRestController<TaskRepository, Task, String
     Validator validator
 
     @Override
+    Task findOne(@PathVariable String id, @AuthenticationPrincipal User user) {
+        def task = (Task) super.findOne(id, user)
+
+        task.processVariables = taskService.createTaskQuery()
+                .taskId(id)
+                .includeProcessVariables()
+                .singleResult()
+                .processVariables
+
+        task
+    }
+
+    @Override
     Iterable<Task> findAll(@RequestParam(required = false) Integer page,
                            @RequestParam(required = false) Integer size,
                            @AuthenticationPrincipal User user) {
@@ -116,6 +129,13 @@ class TaskController extends AbstractRestController<TaskRepository, Task, String
         taskService.resolveTask(id, variables)
 
         em.refresh(task)
+
+        task.processVariables = taskService.createTaskQuery()
+                .taskId(id)
+                .includeProcessVariables()
+                .singleResult()
+                .processVariables
+
         task
     }
 
